@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+*{
+    box-sizing: border-box;
+}
+.header{
+    background-color: brown;
+    color: aliceblue;
+    padding: 1px 5px;
+    text-align: center;
+}
+.nav-menu{
+    padding: 1px 5px;
+    background-color: rgb(14, 114, 81);
+}
+.nav-menu a{
+    color: aliceblue;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 10px;
+    display: block;
+}
+.main{
+    padding: 1px 5px;
+    background-color: cadetblue;
+}
+.aside{
+    padding: 1px 5px;
+    background-color: cornflowerblue;
+    text-align: center;
+}
+.footer{
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8rem;
+}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+[class*="col"]{
+    float: left;
+    padding: 10px;
+}
+
+.row::after{
+    content: '';
+    clear: both;
+    display: table;
+
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Mosharaf Hossain</h1>
+    </div>
+    <div class="row">
+        <div class="nav-menu col-2">
+            <a href="#">Home</a>
+            <a href="#">Tutorial</a>
+            <a href="#">Contract</a>
+        </div>
+        <div class="main col-7">
+            <h2>I am a web Designer</h2>
+            <p>The name of our country is the People’s Republic of Bangladesh. It is one of the most beautiful countries in the world. Our country was a part of Pakistan before 1971. Then we freed our country and achieved victory after nine month’s liberation war. 3 million people sacrificed their lives in the liberation war in 1971. Our independence day is 26th March and Victory day is 16th December. The national language of our country is Bangla. It is also a matter of great pride for us that we are the only nation that sacrificed their lives for the sake of their mother tongue on 21st February of 1952. In order to show respect to them, UNESCO has declared 21st February as International Mother Language Day. The name of the capital of Bangladesh is Dhaka. It is the busiest and populated city in our country. The total population is 16 crore. The total area of our country is 1,47,570 square km. Our country is a river-oriented country. The main rivers of our country are Padma, Jamuna, Meghna. But due to pollution and river pollution, all of these rivers have shrunk. People of all religions live peacefully in this country but most of them are Muslim.</p>
+        </div>
+        <div class="aside col-3">
+            <h2>How are you..??</h2>
+            <p>I am Fine.</p>
+            <h2>How old are you..??</h2>
+            <p>I am 23 years old.</p>
+            <h2>How much your T-shirt??</h2>
+            <p>400 Taka.</p>
+        </div>
+        
+    </div>
+    <div class="footer">
+        &copy;Develop by Mosharaf
+    </div>
+</body>
+</html>

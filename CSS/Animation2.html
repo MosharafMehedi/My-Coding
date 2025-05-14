@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+    <style>
+        img{
+            max-width: 200px;
+            height: auto;
+            border: 5px solid black;
+            display: block;
+            margin: auto;
+            margin-top: 100px;
+            border-radius: 50%;
+            position: relative;
+            animation-name: iname;
+            animation-duration: 0.4s;
+            animation-iteration-count: 30;
+            
+         }
+        @keyframes iname {
+            0%{
+                border-color: red;
+                top: 0;
+                left: 0;
+            }
+            50%{
+                border-color: rgb(82, 0, 57);
+                top: 100px;
+                left: 0;
+            }
+            100%{
+                border-color: green;
+                top: 0;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+        <img src="Html.png" alt="">
+    
+</body>
+</html>

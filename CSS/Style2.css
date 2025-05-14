@@ -1,0 +1,21 @@
+body{
+    background-color: gray;
+    color:darkslategray;
+    text-align:center;
+  }
+  h1{
+    background-color: aliceblue;
+    display: inline;
+    width: 300px;
+    margin:10px ;
+    border:10px solid black;
+    padding: 50px;
+  }
+  h2{
+    background-color:hotpink;
+    display: inline;
+    width: 300px;
+    margin:10px ;
+    border:10px solid black;
+    padding: 50px;
+  }
