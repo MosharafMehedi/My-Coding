@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+    .nav{
+        background-color: aquamarine;
+        padding: 2px 5px;
+        text-align: center;
+        height: 40px;
+    }
+    .nav a{
+        color: rgb(221, 8, 97);
+        font-size: 1.2rem;
+        text-decoration: none;
+        padding: 10px 15px;
+        cursor: pointer;
+
+    }
+    .d-container{
+        display: inline;
+        position: relative;
+        
+    }
+    .d-content{
+   position: absolute;
+   top: 30px;
+        right: 0px;
+        background-color: aquamarine;
+        text-align: left;
+        min-width: 100px;
+        display: none;
+
+    }
+    .d-content a{
+        display: block;
+    }
+    .d-container:hover .d-content{
+        display: block;
+    }
+    .d-content a:hover{
+        background-color: gray;
+    }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="#">Home</a>
+        <a href="#">Tutorial</a>
+       <div class="d-container">
+        <a href="#">Contact</a>
+        <div class="d-content">
+            <a href="#">Facebook</a>
+        <a href="#">Email</a>
+        </div>
+       </div>
+        <a href="#">Aboute Me</a>
+    </div>
+</body>
+</html>

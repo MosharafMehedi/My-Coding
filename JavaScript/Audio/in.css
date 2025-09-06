@@ -1,0 +1,10 @@
+button{
+    background-color: cadetblue;
+    color: black;
+    padding: 15px;
+}
+
+.anim{
+    box-shadow: 0 10px 12px 0 tomato;
+    opacity: 0.5;
+}
