@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas Neon Design</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #080b18;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+canvas {
+    position: fixed;
+    inset: 0;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    pointer-events: none;
+}
+
+.card {
+    padding: 55px 65px;
+    border: 1px solid #ffffff25;
+    border-radius: 25px;
+    background: #ffffff0b;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 60px #387bff20;
+}
+
+.card h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #00dbff, #a855f7);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.card p {
+    color: #b8c1d9;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.card span {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #087cfb, #9333ea);
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div class="content">
+    <div class="card">
+        <h1>Creative Canvas</h1>
+        <p>IMAGINATION MEETS TECHNOLOGY</p>
+        <span>EXPLORE THE FUTURE</span>
+    </div>
+</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+let mouse = { x: null, y: null };
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    particles = [];
+
+    let count = Math.min(
+        120,
+        Math.floor(canvas.width / 10)
+    );
+
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            dx: (Math.random() - 0.5) * 0.7,
+            dy: (Math.random() - 0.5) * 0.7,
+            radius: Math.random() * 2 + 1
+        });
+    }
+}
+
+window.addEventListener("resize", resize);
+
+window.addEventListener("mousemove", (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+
+window.addEventListener("mouseout", () => {
+    mouse.x = null;
+    mouse.y = null;
+});
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p) => {
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+        if (mouse.x !== null) {
+            let dx = p.x - mouse.x;
+            let dy = p.y - mouse.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 120 && distance > 0) {
+                p.x += dx / distance * 1.5;
+                p.y += dy / distance * 1.5;
+            }
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#42caff";
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = "#008cff";
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    });
+
+    particles.forEach((p, i) => {
+        for (let j = i + 1; j < particles.length; j++) {
+            let p2 = particles[j];
+
+            let dx = p.x - p2.x;
+            let dy = p.y - p2.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 120) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+
+                ctx.strokeStyle =
+                    `rgba(50, 160, 255, ${1 - distance / 120})`;
+
+                ctx.lineWidth = 0.6;
+                ctx.stroke();
+            }
+        }
+    });
+
+    requestAnimationFrame(animate);
+}
+
+resize();
+animate();
+</script>
+
+</body>
+</html>
