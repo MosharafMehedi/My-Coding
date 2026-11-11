@@ -1,0 +1,557 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxy - Explore Universe</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #02040f;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+#space {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 28px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.logo span {
+    color: #00c8ff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #d9e3ff;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: #00c8ff;
+}
+
+.menu {
+    display: none;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 120px 20px;
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.tagline {
+    color: #00c8ff;
+    letter-spacing: 6px;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(48px, 8vw, 95px);
+    font-weight: 900;
+    line-height: 1.05;
+    text-shadow: 0 0 35px #168cff60;
+}
+
+h1 span {
+    background: linear-gradient(90deg, #00d4ff, #a855f7);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.description {
+    margin-top: 25px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #b7c4df;
+}
+
+.buttons {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    pointer-events: auto;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 32px;
+    border-radius: 35px;
+    border: 1px solid #00bfff;
+    background: linear-gradient(90deg, #008cff, #8b35ed);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 25px #007bff55;
+    transition: .3s;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 40px #008cff;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #ffffff70;
+}
+
+.scroll {
+    position: absolute;
+    bottom: 30px;
+    color: #a9b8d7;
+    font-size: 13px;
+    letter-spacing: 3px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+footer {
+    position: relative;
+    z-index: 2;
+    padding: 25px;
+    text-align: center;
+    color: #8493b4;
+    font-size: 13px;
+}
+
+@media(max-width: 768px) {
+    .navbar {
+        padding: 22px 6%;
+    }
+
+    .menu {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 75px;
+        right: 5%;
+        width: 200px;
+        padding: 25px;
+        background: #10172c;
+        border: 1px solid #ffffff20;
+        border-radius: 15px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="space"></canvas>
+
+<nav class="navbar">
+    <div class="logo">✦ SPACE<span>X</span></div>
+
+    <div class="menu" id="menu">☰</div>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+
+        <p class="tagline">
+            EXPLORE • DISCOVER • DREAM
+        </p>
+
+        <h1>
+            Welcome to<br>
+            <span>Galaxy</span>
+        </h1>
+
+        <p class="description">
+            A journey beyond imagination<br>
+            into the infinite universe.
+            Discover beautiful planets, stars and galaxies.
+        </p>
+
+        <div class="buttons">
+            <button class="btn" onclick="explore()">
+                Explore Universe →
+            </button>
+
+            <button class="btn btn-outline" onclick="toggleSpeed()">
+                ⚡ Change Speed
+            </button>
+        </div>
+
+    </div>
+
+    <div class="scroll">↓ SCROLL TO EXPLORE</div>
+</section>
+
+<footer>
+    © 2026 Galaxy Explorer | Explore the Infinite Universe
+</footer>
+
+<script>
+const canvas = document.getElementById("space");
+const ctx = canvas.getContext("2d");
+
+let width, height;
+let stars = [];
+let asteroids = [];
+let angle = 0;
+let speed = 1;
+let mouse = { x: 0, y: 0 };
+
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+
+    createStars();
+    createAsteroids();
+}
+
+function createStars() {
+    stars = [];
+
+    for (let i = 0; i < 350; i++) {
+        stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            z: Math.random() * 3 + 0.5,
+            radius: Math.random() * 1.5,
+            alpha: Math.random()
+        });
+    }
+}
+
+function createAsteroids() {
+    asteroids = [];
+
+    for (let i = 0; i < 12; i++) {
+        asteroids.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 12 + 5,
+            rotation: Math.random() * 6,
+            velocity: Math.random() * 0.4 + 0.1
+        });
+    }
+}
+
+// Draw glowing starfield
+function drawStars() {
+    stars.forEach(star => {
+        star.alpha += 0.008 * speed;
+
+        let opacity = 0.4 +
+            Math.sin(star.alpha) * 0.4;
+
+        let x = star.x + mouse.x * star.z * 0.015;
+        let y = star.y + mouse.y * star.z * 0.015;
+
+        ctx.beginPath();
+        ctx.arc(x, y, star.radius, 0, Math.PI * 2);
+
+        ctx.fillStyle =
+            `rgba(180,220,255,${opacity})`;
+
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "#008cff";
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    });
+}
+
+// Draw galaxy
+function drawGalaxy() {
+    let cx = width * 0.78;
+    let cy = height * 0.48;
+
+    ctx.save();
+
+    ctx.translate(
+        cx + mouse.x * 0.05,
+        cy + mouse.y * 0.05
+    );
+
+    ctx.rotate(angle * 0.1);
+
+    // Galaxy glow
+    let glow = ctx.createRadialGradient(
+        0, 0, 10,
+        0, 0, 300
+    );
+
+    glow.addColorStop(0, "#ffffff");
+    glow.addColorStop(0.08, "#ffb5ed");
+    glow.addColorStop(0.3, "#8639ff55");
+    glow.addColorStop(1, "transparent");
+
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(0, 0, 300, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Spiral arms
+    for (let arm = 0; arm < 4; arm++) {
+        for (let i = 0; i < 180; i++) {
+
+            let t = i / 180;
+            let radius = t * 270;
+
+            let a =
+                t * 7 +
+                arm * Math.PI / 2 +
+                angle * 0.5;
+
+            let x = Math.cos(a) * radius;
+            let y = Math.sin(a) * radius * 0.55;
+
+            let size = Math.random() * 1.2 + 0.5;
+
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+
+            ctx.fillStyle =
+                i % 3 === 0 ? "#ffb8ef" : "#56aaff";
+
+            ctx.fill();
+        }
+    }
+
+    ctx.restore();
+}
+
+// Draw planet
+function drawPlanet(x, y, radius, color1, color2) {
+    ctx.save();
+
+    let gradient = ctx.createRadialGradient(
+        x - radius * 0.4,
+        y - radius * 0.4,
+        radius * 0.05,
+        x,
+        y,
+        radius
+    );
+
+    gradient.addColorStop(0, color1);
+    gradient.addColorStop(0.6, color2);
+    gradient.addColorStop(1, "#030617");
+
+    ctx.shadowBlur = 35;
+    ctx.shadowColor = color2;
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    ctx.shadowBlur = 0;
+
+    // Planet atmosphere
+    ctx.strokeStyle = "#65bdff80";
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius + 3, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.restore();
+}
+
+// Draw asteroids
+function drawAsteroids() {
+    asteroids.forEach(a => {
+        ctx.save();
+
+        a.rotation += 0.002 * speed;
+        a.y += a.velocity * speed;
+
+        if (a.y > height + 20) {
+            a.y = -20;
+            a.x = Math.random() * width;
+        }
+
+        ctx.translate(a.x, a.y);
+        ctx.rotate(a.rotation);
+
+        ctx.fillStyle = "#58617b";
+
+        ctx.beginPath();
+
+        for (let i = 0; i < 8; i++) {
+            let angle = i * Math.PI / 4;
+            let r = a.size * (
+                0.7 + Math.sin(i * 4) * 0.2
+            );
+
+            let x = Math.cos(angle) * r;
+            let y = Math.sin(angle) * r;
+
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+    });
+}
+
+// Main animation
+function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Deep space background
+    let bg = ctx.createLinearGradient(
+        0, 0, width, height
+    );
+
+    bg.addColorStop(0, "#020617");
+    bg.addColorStop(0.5, "#080d2c");
+    bg.addColorStop(1, "#160727");
+
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, width, height);
+
+    drawStars();
+    drawGalaxy();
+
+    // Main planet
+    drawPlanet(
+        width * 0.12 + mouse.x * 0.03,
+        height * 0.75 + mouse.y * 0.03,
+        Math.min(width * 0.18, 160),
+        "#8ed5ff",
+        "#1553aa"
+    );
+
+    // Small planet
+    drawPlanet(
+        width * 0.82 + mouse.x * 0.06,
+        height * 0.77 + mouse.y * 0.06,
+        48,
+        "#e5a4ff",
+        "#6522aa"
+    );
+
+    // Another planet
+    drawPlanet(
+        width * 0.20,
+        height * 0.18,
+        28,
+        "#9f8dff",
+        "#33205e"
+    );
+
+    drawAsteroids();
+
+    angle += 0.002 * speed;
+
+    requestAnimationFrame(animate);
+}
+
+// Mouse parallax
+window.addEventListener("mousemove", e => {
+    mouse.x = e.clientX - width / 2;
+    mouse.y = e.clientY - height / 2;
+});
+
+// Mobile menu
+document.getElementById("menu").onclick = () => {
+    document.getElementById("navLinks")
+        .classList.toggle("active");
+};
+
+// Explore button
+function explore() {
+    document.getElementById("home")
+        .scrollIntoView({ behavior: "smooth" });
+
+    speed = 3;
+}
+
+// Animation speed
+function toggleSpeed() {
+    speed = speed === 1 ? 3 : 1;
+}
+
+window.addEventListener("resize", resize);
+
+resize();
+animate();
+
+</script>
+
+</body>
+</html>
