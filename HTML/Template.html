@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Template</title>
+
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            width: 200px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My Shopping Store</h1>
+
+    <div id="products"></div>
+
+    <template id="productTemplate">
+        <div class="card">
+            <h2 class="name"></h2>
+            <p class="price"></p>
+            <button>Buy Now</button>
+        </div>
+    </template>
+
+    <script>
+        const products = [
+            { name: "Laptop", price: "$800" },
+            { name: "Mobile", price: "$500" },
+            { name: "Headphone", price: "$100" }
+        ];
+
+        const template = document.getElementById("productTemplate");
+        const container = document.getElementById("products");
+
+        products.forEach(product => {
+            const clone = template.content.cloneNode(true);
+
+            clone.querySelector(".name").textContent = product.name;
+            clone.querySelector(".price").textContent = product.price;
+
+            container.appendChild(clone);
+        });
+    </script>
+
+</body>
+</html>
